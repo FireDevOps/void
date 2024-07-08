@@ -5,6 +5,7 @@ import net.pearx.kasechange.toSentenceCase
 import net.pearx.kasechange.toTitleCase
 import world.gregs.voidps.engine.client.message
 import world.gregs.voidps.engine.client.sendScript
+import world.gregs.voidps.engine.client.ui.chat.Colours
 import world.gregs.voidps.engine.client.ui.chat.an
 import world.gregs.voidps.engine.client.ui.closeMenu
 import world.gregs.voidps.engine.client.ui.event.interfaceClose
@@ -68,11 +69,6 @@ val itemDefinitions: ItemDefinitions by inject()
 val interfaceDefinitions: InterfaceDefinitions by inject()
 val logger = InlineLogger()
 
-val white = 32767
-val black = 0
-val orange = 30309
-val green = 992
-
 interfaceOption(id = "smithing") {
     val metal: String = player["smithing_metal"] ?: return@interfaceOption
     val type = component.substringBeforeLast('_')
@@ -104,10 +100,10 @@ itemOnObjectOperate("*_bar", "anvil*") {
             val amount = componentDefinition?.getOrNull("amount") ?: 1
             player.interfaces.sendItem("smithing", type, id, amount)
             val smithing: Smithing = itemDefinition["smithing"]
-            player.interfaces.sendColour("smithing", "${type}_name", if (player.has(Skill.Smithing, smithing.level)) white else black)
+            player.interfaces.sendColour("smithing", "${type}_name", if (player.has(Skill.Smithing, smithing.level)) Colours.WHITE else Colours.BLACK)
         }
         val required = componentDefinition?.getOrNull("bars") ?: 1
-        player.interfaces.sendColour("smithing", "${type}_bar", if (bars < required) orange else green)
+        player.interfaces.sendColour("smithing", "${type}_bar", if (bars < required) Colours.ORANGE else Colours.GREEN)
     }
 
     player.interfaces.sendVisibility("smithing", "wire_bronze", metal == "bronze")
