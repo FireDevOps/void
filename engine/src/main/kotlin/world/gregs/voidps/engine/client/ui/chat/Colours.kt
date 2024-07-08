@@ -28,6 +28,7 @@ object Colours {
     const val RED: Colour = 0xff0000
     const val RED_ORANGE: Colour = 0xff3333
     const val YELLOW: Colour = 0xffff00
+    const val GOLD: Colour = 0xd7b011
     const val LIME: Colour = 0x00ff80
     const val WHITE: Colour = 0xffffff
     const val BLACK: Colour = 0x000000
@@ -46,6 +47,7 @@ object Colours {
         "red" to RED,
         "red_orange" to RED_ORANGE,
         "yellow" to YELLOW,
+        "gold" to GOLD,
         "lime" to LIME,
         "white" to WHITE,
         "black" to BLACK,
