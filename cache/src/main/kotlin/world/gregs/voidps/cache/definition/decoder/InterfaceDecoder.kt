@@ -72,8 +72,7 @@ class InterfaceDecoder : DefinitionDecoder<InterfaceDefinition>(INTERFACES) {
             buffer.skip(6)
         } else if (type == 4) {
             buffer.skip(2)
-            text = buffer.readString()
-            empty = false
+            buffer.readString()
             buffer.skip(9)
         } else if (type == 5) {
             buffer.skip(19)
