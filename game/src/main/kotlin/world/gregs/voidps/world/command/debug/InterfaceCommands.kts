@@ -33,7 +33,6 @@ adminCommand("inter") {
         if (id == -1) {
             player.client?.closeInterface(parent, index)
         } else {
-            println("Open $parent $index $id")
             player.client?.openInterface(false, parent, index, id)
         }
     }

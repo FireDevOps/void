@@ -15,7 +15,7 @@ object DumpSprites {
         val decoder = SpriteDecoder().load(cache)
         println(decoder.lastIndex)
         val directory = File("./temp/sprites/")
-        directory.mkdir()
+        directory.mkdirs()
         for (i in decoder.indices) {
             val def = decoder.getOrNull(i) ?: continue
             println("Sprite $i ${def.sprites?.size}")

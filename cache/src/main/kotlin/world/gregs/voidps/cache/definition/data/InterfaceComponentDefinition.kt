@@ -7,6 +7,7 @@ data class InterfaceComponentDefinition(
     override var id: Int = -1,
     var options: Array<String?>? = null,
     var information: Array<Any>? = null,
+    var text: String = "",
     override var stringId: String = "",
     override var extras: Map<String, Any>? = null
 ) : Definition, Extra {
@@ -26,6 +27,7 @@ data class InterfaceComponentDefinition(
             if (!information.contentEquals(other.information)) return false
         } else if (other.information != null) return false
         if (stringId != other.stringId) return false
+        if (text != other.text) return false
         return extras == other.extras
     }
 
@@ -34,6 +36,7 @@ data class InterfaceComponentDefinition(
         result = 31 * result + (options?.contentHashCode() ?: 0)
         result = 31 * result + (information?.contentHashCode() ?: 0)
         result = 31 * result + stringId.hashCode()
+        result = 31 * result + text.hashCode()
         result = 31 * result + (extras?.hashCode() ?: 0)
         return result
     }
