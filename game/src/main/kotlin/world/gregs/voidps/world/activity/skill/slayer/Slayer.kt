@@ -4,7 +4,8 @@ import world.gregs.voidps.engine.entity.character.Character
 import world.gregs.voidps.engine.entity.character.npc.NPC
 import world.gregs.voidps.engine.entity.character.player.Player
 
-private fun isUndead(category: String) = category == "shade" || category == "zombie" || category == "skeleton" || category == "ghost" || category == "zogre" || category == "ankou"
+private fun isUndead(category: String) =
+    category == "shade" || category == "zombie" || category == "skeleton" || category == "ghost" || category == "zogre" || category == "ankou"
 
 val Character.undead: Boolean
     get() = if (this is NPC) isUndead(race) else false
@@ -14,6 +15,12 @@ val Player.hasSlayerTask: Boolean
 
 val NPC.race: String
     get() = this.def["race", ""]
+
+var Player.slayerPoints: Int
+    get() = this["slayer_points", 0]
+    set(value) {
+        this["slayer_points"] = value
+    }
 
 fun Player.isTask(character: Character?): Boolean {
     val target = character ?: return false
