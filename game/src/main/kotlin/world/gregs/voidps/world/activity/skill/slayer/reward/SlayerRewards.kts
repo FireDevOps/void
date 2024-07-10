@@ -2,10 +2,17 @@ package world.gregs.voidps.world.activity.skill.slayer.reward
 
 import world.gregs.voidps.engine.client.message
 import world.gregs.voidps.engine.client.ui.chat.Colours
+import world.gregs.voidps.engine.client.ui.chat.plural
 import world.gregs.voidps.engine.client.ui.event.interfaceOpen
 import world.gregs.voidps.engine.client.ui.interfaceOption
 import world.gregs.voidps.engine.client.ui.open
 import world.gregs.voidps.engine.entity.character.player.Player
+import world.gregs.voidps.engine.entity.character.player.skill.Skill
+import world.gregs.voidps.engine.entity.character.player.skill.exp.exp
+import world.gregs.voidps.engine.inv.add
+import world.gregs.voidps.engine.inv.inventory
+import world.gregs.voidps.engine.inv.transact.Transaction
+import world.gregs.voidps.engine.inv.transact.operation.AddItem.add
 import world.gregs.voidps.world.activity.skill.slayer.slayerPoints
 
 interfaceOption("Learn", "learn", "slayer_rewards") {
@@ -38,17 +45,47 @@ fun refreshText(player: Player, id: String) {
 }
 
 interfaceOption("Buy XP", "buy_xp_*", "slayer_rewards") {
+    if (player.slayerPoints < 400) {
+        player.message("Sorry. That would cost 400 and you only have ${player.slayerPoints} Slayer ${"Point".plural(player.slayerPoints)}.")
+    } else if (player.inventory.add("ring_of_slaying_8")) {
+        player.slayerPoints -= 400
+        player.exp(Skill.Slayer, 10_000.0)
+        // TODO message
+    }
 }
 
 interfaceOption("Buy Ring", "buy_ring_*", "slayer_rewards") {
+    buy(player, 75, "Here are your ring. Use it wisely.") { // TODO proper message
+        add("ring_of_slaying_8")
+    }
 }
 
 interfaceOption("Buy Runes", "buy_runes_*", "slayer_rewards") {
-    player.message("Here are your runes. Use them wisely.")
+    buy(player, 35, "Here are your runes. Use them wisely.") {
+        add("death_rune", 250)
+        add("mind_rune", 1000)
+    }
 }
 
 interfaceOption("Buy Bolts", "buy_bolts_*", "slayer_rewards") {
+    buy(player, 35, "Here are your bolts. Use them wisely.") { // TODO proper message
+        add("broad_tipped_bolts", 250)
+    }
 }
 
 interfaceOption("Buy Arrows", "buy_arrows_*", "slayer_rewards") {
+    buy(player, 35, "Here are your arrows. Use them wisely.") { // TODO proper message
+        add("broad_arrow", 250)
+    }
+}
+
+fun buy(player: Player, points: Int, message: String, transaction: Transaction.() -> Unit) {
+    if (player.slayerPoints < points) {
+        player.message("Sorry. That would cost $points and you only have ${player.slayerPoints} Slayer ${"Point".plural(player.slayerPoints)}.")
+        return
+    }
+    if (player.inventory.transaction(transaction)) {
+        player.slayerPoints -= points
+        player.message(message)
+    }
 }

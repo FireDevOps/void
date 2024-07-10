@@ -45,7 +45,7 @@ interfaceRefresh("make_mould*") { player ->
                 player.interfaces.sendVisibility(id, "make_${type}_options_$i", false)
             } else {
                 var item = Item("${if (player.inventory.contains("gold_bar") && (i == 0 || player.inventory.contains(gems[i]))) gems[i] else "blank"}_$type")
-                if (item.id == "enchanted_gem_ring" && player.unlocked("ring_bling")) {
+                if (item.id == "enchanted_gem_ring" && player.contains("ring_bling")) {
                     item = Item("ring_of_slaying_8")
                 }
                 val jewellery = item.jewellery
