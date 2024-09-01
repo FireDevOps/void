@@ -16,6 +16,7 @@ services:
       - db
     networks:
       - internal_network
+      - external_network
   db:
     image: postgres:16.2-alpine3.19
     environment:
@@ -24,6 +25,9 @@ services:
       POSTGRES_PASSWORD: password
     networks:
       - internal_network
+      - external_network
 networks:
   internal_network:
+    driver: bridge
+  external_network:
     driver: bridge
