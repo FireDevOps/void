@@ -16,7 +16,7 @@ dependencies {
     implementation(libs.kotlinx.io)
     implementation(libs.kotlinx.coroutines)
 
-    implementation("org.apache.commons:commons-compress:1.24.0")
+    implementation("org.apache.commons:commons-compress:1.26.0")
     implementation("org.jsoup:jsoup:1.17.2")
     implementation("org.sweble.wikitext:swc-engine:3.1.9")
     implementation("com.github.weisj:darklaf-core:2.7.3")
